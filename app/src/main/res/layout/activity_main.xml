@@ -10,6 +10,15 @@
         android:padding="16dp">
 
         <TextView
+            android:id="@+id/tvStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Etat securite"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:paddingBottom="16dp" />
+
+        <TextView
             android:id="@+id/tvHello"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -22,22 +31,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Factoriel"
-            android:textSize="20sp"
-            android:paddingBottom="12dp" />
-
-        <TextView
-            android:id="@+id/tvReverse"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Reverse String"
-            android:textSize="20sp"
-            android:paddingBottom="12dp" />
-
-        <TextView
-            android:id="@+id/tvArray"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Somme tableau"
             android:textSize="20sp"
             android:paddingBottom="12dp" />
 

@@ -2,15 +2,15 @@ package com.example.jnidemo;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
+    public native boolean isDebugDetected();
     public native String helloFromJNI();
     public native int factorial(int n);
-    public native String reverseString(String s);
-    public native int sumArray(int[] values);
 
     static {
         System.loadLibrary("native-lib");
@@ -21,25 +21,30 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        TextView tvStatus = findViewById(R.id.tvStatus);
         TextView tvHello = findViewById(R.id.tvHello);
         TextView tvFact = findViewById(R.id.tvFact);
-        TextView tvReverse = findViewById(R.id.tvReverse);
-        TextView tvArray = findViewById(R.id.tvArray);
 
-        tvHello.setText(helloFromJNI());
+        boolean suspicious = isDebugDetected();
 
-        int fact10 = factorial(10);
-        if (fact10 >= 0) {
-            tvFact.setText("Factoriel de 10 = " + fact10);
+        if (suspicious) {
+            tvStatus.setText("Etat securite : environnement suspect detecte");
+            tvStatus.setTextColor(Color.RED);
+
+            tvHello.setText("Fonction native sensible desactivee");
+            tvFact.setText("Calcul natif bloque");
         } else {
-            tvFact.setText("Erreur factoriel, code = " + fact10);
+            tvStatus.setText("Etat securite : OK");
+            tvStatus.setTextColor(Color.parseColor("#2E7D32"));
+
+            tvHello.setText(helloFromJNI());
+
+            int result = factorial(10);
+            if (result >= 0) {
+                tvFact.setText("Factoriel de 10 = " + result);
+            } else {
+                tvFact.setText("Erreur factoriel");
+            }
         }
-
-        String reversed = reverseString("JNI is powerful!");
-        tvReverse.setText("Texte inverse : " + reversed);
-
-        int[] numbers = {10, 20, 30, 40, 50};
-        int sum = sumArray(numbers);
-        tvArray.setText("Somme du tableau = " + sum);
     }
 }
